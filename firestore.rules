@@ -1,0 +1,110 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * CUSTOM KEYCHAIN STORE - SECURITY RULES
+     *
+     * CORE PHILOSOPHY:
+     * This ruleset implements a hybrid security model. Product data and lifestyle imagery are 
+     * publicly readable to drive engagement and sales, while customer-specific data (custom 
+     * keychain requests) is strictly isolated to the authenticated user who created it.
+     *
+     * DATA STRUCTURE:
+     * - /keychains/{keychainId}: Global catalog of products (Public Read).
+     * - /galleryImages/{galleryImageId}: Global lifestyle gallery (Public Read).
+     * - /users/{userId}/customKeychainRequests/{requestId}: Private user submissions (Owner-Only).
+     *
+     * KEY SECURITY DECISIONS:
+     * 1. Public Catalogs: Product and Gallery collections are open for 'get' and 'list' to 
+     *    unauthenticated users to ensure the storefront is SEO-friendly and accessible.
+     * 2. Strict Ownership: Custom requests are nested under a /users/{userId} path, enforcing 
+     *    that only the authenticated user matching that ID can access or manage those requests.
+     * 3. Authorization Over Schema: Rules focus on "Who" is making the request and "Relationship" 
+     *    integrity (matching the data's ownerId to the path) rather than strict data-type 
+     *    validation, facilitating rapid prototyping.
+     * 4. Denormalization: For CustomKeychainRequests, the system expects an 'ownerId' field 
+     *    within the document to match the parent {userId} path for redundant safety.
+     */
+
+    // --- GLOBAL HELPER FUNCTIONS ---
+
+    /** @description Checks if the request is from an authenticated user. */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /** @description Checks if the authenticated user's UID matches the provided userId. */
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    /** @description Combines ownership check with a verification that the document exists. */
+    function isExistingOwner(userId) {
+      return resource != null && isOwner(userId);
+    }
+
+    // --- COLLECTION RULES ---
+
+    /**
+     * @description Publicly accessible collection of premium keychain products.
+     * @path /keychains/{keychainId}
+     * @allow Unauthenticated user (get) any keychain.
+     * @deny Any user (create) a keychain (Admin writes not yet configured).
+     * @principle Public Read with restricted writes.
+     */
+    match /keychains/{keychainId} {
+      allow get, list: if true;
+      
+      // CRITICAL: Cannot implement owner-only writes. The 'Keychain' entity is missing an 'ownerId' or 'authorId' field.
+      allow create, update, delete: if false; // TODO: Add admin or owner validation once the schema is updated.
+    }
+
+    /**
+     * @description Publicly accessible collection of lifestyle images.
+     * @path /galleryImages/{galleryImageId}
+     * @allow Unauthenticated user (list) the gallery.
+     * @deny Any user (update) a gallery image.
+     * @principle Public Read with restricted writes.
+     */
+    match /galleryImages/{galleryImageId} {
+      allow get, list: if true;
+
+      // CRITICAL: Cannot implement owner-only writes. The 'GalleryImage' entity is missing an 'ownerId' or 'authorId' field.
+      allow create, update, delete: if false; // TODO: Add admin or owner validation once the schema is updated.
+    }
+
+    /**
+     * @description Private user requests for custom-designed keychains.
+     * @path /users/{userId}/customKeychainRequests/{customKeychainRequestId}
+     * @allow Authenticated user 'user_123' (create) under /users/user_123/...
+     * @deny Authenticated user 'user_123' (list) under /users/user_456/...
+     * @principle Enforces strict document ownership and relational integrity via path wildcards.
+     */
+    match /users/{userId}/customKeychainRequests/{customKeychainRequestId} {
+      
+      allow get, list: if isOwner(userId);
+
+      allow create: if isOwner(userId) 
+                    && request.resource.data.ownerId == userId;
+
+      allow update: if isExistingOwner(userId) 
+                    && request.resource.data.ownerId == resource.data.ownerId;
+
+      allow delete: if isExistingOwner(userId);
+    }
+
+    // --- USER PROFILE (ROOT) ---
+    /**
+     * @description Basic user document for path consistency.
+     * @path /users/{userId}
+     */
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+      allow list: if false; // Users should not be listable for privacy.
+    }
+  }
+}

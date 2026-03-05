@@ -1,0 +1,213 @@
+{
+  "entities": {
+    "Keychain": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Keychain",
+      "type": "object",
+      "description": "Represents a premium keychain product available for display on the landing page and for sale in the store.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Keychain entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the keychain product."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description highlighting the key features or aesthetic of the keychain."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "The URL to the main image of the keychain, suitable for product cards and showcases.",
+          "format": "uri"
+        },
+        "price": {
+          "type": "number",
+          "description": "The selling price of the keychain."
+        },
+        "storeLink": {
+          "type": "string",
+          "description": "The URL to the external store page where this keychain can be purchased.",
+          "format": "uri"
+        },
+        "isFeatured": {
+          "type": "boolean",
+          "description": "A flag indicating whether this keychain should be highlighted in the 'Featured Keychains' section on the landing page."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the keychain record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the keychain record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "imageUrl",
+        "price",
+        "storeLink",
+        "isFeatured",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "GalleryImage": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "GalleryImage",
+      "type": "object",
+      "description": "Represents an image used in the lifestyle gallery section, showcasing keychains in real-life contexts.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the GalleryImage entity."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "The URL to the lifestyle image.",
+          "format": "uri"
+        },
+        "caption": {
+          "type": "string",
+          "description": "A short descriptive text or context for the image."
+        },
+        "keychainId": {
+          "type": "string",
+          "description": "Reference to the Keychain entity that is featured in this image. (Relationship: Keychain 1:N GalleryImage)"
+        },
+        "displayOrder": {
+          "type": "number",
+          "description": "An optional numerical value to control the display order of images within the gallery."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the gallery image record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the gallery image record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "imageUrl",
+        "keychainId",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "CustomKeychainRequest": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "CustomKeychainRequest",
+      "type": "object",
+      "description": "Represents a customer's request for a custom-designed keychain, including their specifications and an optional reference image.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the CustomKeychainRequest entity."
+        },
+        "customerName": {
+          "type": "string",
+          "description": "The full name of the customer submitting the request."
+        },
+        "customerEmail": {
+          "type": "string",
+          "description": "The email address of the customer for communication regarding their request.",
+          "format": "email"
+        },
+        "requestDetails": {
+          "type": "string",
+          "description": "A detailed textual description provided by the customer outlining their custom keychain design preferences."
+        },
+        "submittedImageUrl": {
+          "type": "string",
+          "description": "The URL to an image uploaded by the customer, serving as a reference or example for their custom keychain design. This property is optional.",
+          "format": "uri"
+        },
+        "requestDate": {
+          "type": "string",
+          "description": "The date and time when the custom keychain request was submitted.",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "The current processing status of the custom keychain request (e.g., 'Pending', 'Reviewed', 'In Progress', 'Completed', 'Rejected')."
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the custom keychain request record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "customerName",
+        "customerEmail",
+        "requestDetails",
+        "requestDate",
+        "status",
+        "updatedAt"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/keychains/{keychainId}",
+        "definition": {
+          "entityName": "Keychain",
+          "schema": {
+            "$ref": "#/backend/entities/Keychain"
+          },
+          "description": "Publicly accessible collection of all premium keychains. Used for product displays, featured sections, and linking to external stores. All documents in this collection are public."
+        }
+      },
+      {
+        "path": "/galleryImages/{galleryImageId}",
+        "definition": {
+          "entityName": "GalleryImage",
+          "schema": {
+            "$ref": "#/backend/entities/GalleryImage"
+          },
+          "description": "Publicly accessible collection of lifestyle images showcasing keychains in real-life contexts. References 'keychainId' but is a top-level collection for simpler public access. All documents in this collection are public."
+        }
+      },
+      {
+        "path": "/users/{userId}/customKeychainRequests/{customKeychainRequestId}",
+        "definition": {
+          "entityName": "CustomKeychainRequest",
+          "schema": {
+            "$ref": "#/backend/entities/CustomKeychainRequest"
+          },
+          "description": "Stores customer requests for custom keychains, owned by the submitting user. Each document will include a denormalized 'ownerId' field that matches the '{userId}' wildcard from the path, ensuring explicit authorization. Only the 'userId' in the path (i.e., 'request.auth.uid') can create, read, or update their own requests.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user submitting the custom keychain request."
+            },
+            {
+              "name": "customKeychainRequestId",
+              "description": "The unique identifier for a specific custom keychain request."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to be secure, scalable, and debuggable, adhering strictly to the core design principles and mandates. \n\n**Authorization Independence:**\n1.  **Public Collections (`/keychains`, `/galleryImages`):** These collections hold data that is globally visible and does not require user-specific authorization. Therefore, no `get()` calls are needed in security rules, ensuring atomic operations and full authorization independence. All documents are directly accessible based on their path.\n2.  **User-Owned Data (`/users/{userId}/customKeychainRequests/{customKeychainRequestId}`):** For custom keychain requests, authorization is primarily tied to the user submitting the request. To achieve authorization independence, each `CustomKeychainRequest` document will include a denormalized `ownerId` field. This `ownerId` must match the `{userId}` wildcard in the path. This allows security rules to validate ownership directly from the document itself (`resource.data.ownerId == request.auth.uid`) without needing to traverse parent documents via `get()`, thus enabling atomic operations for creating, updating, and deleting requests.\n\n**Query-Ability for Rules (QAPs):**\n1.  **Public Collections:** By placing `Keychains` and `GalleryImages` in top-level collections (`/keychains`, `/galleryImages`), we ensure a homogeneous security posture: all documents within these collections are publicly readable. This inherently supports QAPs for `list` operations, as clients can query and retrieve all items without needing complex, filtering security rules.\n2.  **User-Owned Data:** The hierarchical path `/users/{userId}/customKeychainRequests/{customKeychainRequestId}` is crucial for QAPs. It naturally scopes `list` operations to the authenticated user's own requests. A security rule like `allow read, write: if request.auth.uid == userId;` ensures that when a user queries `/users/myUserId/customKeychainRequests`, only *their* requests are returned, and the rule's conditions are applied efficiently at the path level, avoiding the need for database filters in rules.\n\n**Structural Segregation and Access Modeling:**\n*   `Keychains` and `GalleryImages` are segregated into their own top-level collections because they share a public security posture.\n*   `CustomKeychainRequest` data is segregated under `/users/{userId}/` because it has a private, user-specific security posture.\n\nThis design prioritizes explicit ownership, minimizes rule complexity, and ensures that `list` operations are secure and performant by leveraging the structure itself rather than relying on inefficient rule-based filtering or cross-document lookups."
+  }
+}
