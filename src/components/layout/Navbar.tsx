@@ -1,3 +1,4 @@
+
 "use client"
 
 import { motion } from "framer-motion"
@@ -6,6 +7,8 @@ import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
+import { getCartCount } from "@/lib/cart"
+import { CartSheet } from "@/components/cart/CartSheet"
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -20,8 +23,7 @@ export function Navbar() {
     }
     
     const updateCartCount = () => {
-      const count = parseInt(localStorage.getItem('keynique-cart-count') || '0')
-      setCartCount(count)
+      setCartCount(getCartCount())
     }
 
     updateCartCount()
@@ -64,19 +66,21 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-6">
-          <button className="relative text-foreground/80 hover:text-primary transition-colors">
-            <ShoppingBag size={20} />
-            {cartCount > 0 && (
-              <motion.span 
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                key={cartCount}
-                className="absolute -top-1 -right-1 w-4 h-4 bg-secondary text-[10px] text-background font-bold flex items-center justify-center rounded-full"
-              >
-                {cartCount}
-              </motion.span>
-            )}
-          </button>
+          <CartSheet>
+            <button className="relative text-foreground/80 hover:text-primary transition-colors group">
+              <ShoppingBag size={20} />
+              {cartCount > 0 && (
+                <motion.span 
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  key={cartCount}
+                  className="absolute -top-2 -right-2 w-5 h-5 bg-primary text-[10px] text-white font-bold flex items-center justify-center rounded-full shadow-[0_0_10px_rgba(139,92,246,0.5)] group-hover:scale-110 transition-transform"
+                >
+                  {cartCount}
+                </motion.span>
+              )}
+            </button>
+          </CartSheet>
           <button 
             className="md:hidden text-foreground/80"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

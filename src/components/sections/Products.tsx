@@ -6,18 +6,42 @@ import Image from "next/image"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { NeonButton } from "@/components/ui/neon-button"
 import { ShoppingCart } from "lucide-react"
+import { addToCart } from "@/lib/cart"
 
 const PRODUCTS = [
-  { id: "product-1", name: "The Obsidian", price: "Rs. 13,999", tag: "Limited" },
-  { id: "product-2", name: "Cyber Iris", price: "Rs. 16,499", tag: "New" },
-  { id: "product-3", name: "Titan Geometric", price: "Rs. 12,599", tag: "Classic" },
+  { 
+    id: "product-1", 
+    name: "The Obsidian", 
+    price: 13999, 
+    displayPrice: "Rs. 13,999", 
+    tag: "Limited" 
+  },
+  { 
+    id: "product-2", 
+    name: "Cyber Iris", 
+    price: 16499, 
+    displayPrice: "Rs. 16,499", 
+    tag: "New" 
+  },
+  { 
+    id: "product-3", 
+    name: "Titan Geometric", 
+    price: 12599, 
+    displayPrice: "Rs. 12,599", 
+    tag: "Classic" 
+  },
 ]
 
 export function Products() {
-  const handleAddToCart = () => {
-    const currentCount = parseInt(localStorage.getItem('keynique-cart-count') || '0')
-    localStorage.setItem('keynique-cart-count', (currentCount + 1).toString())
-    window.dispatchEvent(new Event('cart-updated'))
+  const handleAddToCartAction = (product: typeof PRODUCTS[0]) => {
+    const imgData = PlaceHolderImages.find(img => img.id === product.id)
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      displayPrice: product.displayPrice,
+      image: imgData?.imageUrl || "https://picsum.photos/seed/placeholder/200/200"
+    })
   }
 
   return (
@@ -61,7 +85,7 @@ export function Products() {
                   )}
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-3">
                     <button 
-                      onClick={handleAddToCart}
+                      onClick={() => handleAddToCartAction(product)}
                       className="bg-primary text-white font-headline font-bold py-3 px-6 rounded-full text-xs hover:bg-primary/90 transition-all flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 duration-500"
                     >
                       <ShoppingCart size={14} />
@@ -76,11 +100,11 @@ export function Products() {
                       <h3 className="text-xl font-bold font-headline group-hover:text-primary transition-colors">{product.name}</h3>
                       <p className="text-muted-foreground text-sm font-medium">Aerospace Grade Aluminum</p>
                     </div>
-                    <span className="text-xl font-bold text-foreground whitespace-nowrap">{product.price}</span>
+                    <span className="text-xl font-bold text-foreground whitespace-nowrap">{product.displayPrice}</span>
                   </div>
                   
                   <button 
-                    onClick={handleAddToCart}
+                    onClick={() => handleAddToCartAction(product)}
                     className="md:hidden w-full bg-primary/10 border border-primary/20 text-primary font-headline font-bold py-3 rounded-lg text-sm flex items-center justify-center gap-2 hover:bg-primary hover:text-white transition-all"
                   >
                     <ShoppingCart size={16} />
