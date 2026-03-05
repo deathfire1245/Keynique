@@ -1,22 +1,24 @@
-
 "use client"
 
 import { motion } from "framer-motion"
 import { ShoppingBag, Menu, X } from "lucide-react"
 import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
+import { PlaceHolderImages } from "@/lib/placeholder-images"
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [cartCount, setCartCount] = useState(0)
 
+  const logo = PlaceHolderImages.find(img => img.id === "brand-logo")
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
     }
     
-    // Sync cart count from localStorage
     const updateCartCount = () => {
       const count = parseInt(localStorage.getItem('keynique-cart-count') || '0')
       setCartCount(count)
@@ -38,8 +40,18 @@ export function Navbar() {
       isScrolled ? "bg-background/80 backdrop-blur-md border-b border-border py-3" : "bg-transparent"
     )}>
       <div className="container mx-auto flex justify-between items-center">
-        <a href="/" className="text-2xl font-bold font-headline tracking-tighter group flex items-center gap-2">
-          <div className="w-8 h-8 rounded bg-primary flex items-center justify-center text-background font-bold text-lg">K</div>
+        <a href="/" className="text-2xl font-bold font-headline tracking-tighter group flex items-center gap-3">
+          {logo && (
+            <div className="relative w-10 h-10 overflow-hidden rounded-lg border border-border/50 group-hover:border-primary/50 transition-colors">
+              <Image 
+                src={logo.imageUrl} 
+                alt="Keynique Logo" 
+                fill 
+                className="object-cover"
+                data-ai-hint={logo.imageHint}
+              />
+            </div>
+          )}
           <span className="group-hover:text-primary transition-colors">Keynique</span>
         </a>
 

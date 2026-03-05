@@ -1,7 +1,10 @@
-
 import { Instagram, Twitter, Mail } from "lucide-react"
+import Image from "next/image"
+import { PlaceHolderImages } from "@/lib/placeholder-images"
 
 export function Footer() {
+  const logo = PlaceHolderImages.find(img => img.id === "brand-logo")
+
   return (
     <footer className="py-20 bg-background border-t border-border">
       <div className="container mx-auto px-4">
@@ -10,8 +13,19 @@ export function Footer() {
 
         <div className="grid md:grid-cols-4 gap-12 mb-20">
           <div className="col-span-2">
-            <a href="/" className="text-3xl font-bold font-headline tracking-tighter mb-6 block">
-              Keynique<span className="text-primary">.</span>
+            <a href="/" className="text-3xl font-bold font-headline tracking-tighter mb-6 flex items-center gap-3">
+              {logo && (
+                <div className="relative w-12 h-12 overflow-hidden rounded-lg">
+                  <Image 
+                    src={logo.imageUrl} 
+                    alt="Keynique Logo" 
+                    fill 
+                    className="object-cover"
+                    data-ai-hint={logo.imageHint}
+                  />
+                </div>
+              )}
+              <span>Keynique<span className="text-primary">.</span></span>
             </a>
             <p className="text-muted-foreground max-w-sm mb-8">
               Redefining the standard of everyday essentials through technical artistry and minimalist design. Based in the future, built for now.

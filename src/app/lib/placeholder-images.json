@@ -1,6 +1,11 @@
-
 {
   "placeholderImages": [
+    {
+      "id": "brand-logo",
+      "description": "Keynique Brand Logo",
+      "imageUrl": "https://i.postimg.cc/j5PVdq5p/Whats-App-Image-2026-03-05-at-11-53-01-PM.jpg",
+      "imageHint": "brand logo"
+    },
     {
       "id": "hero-keychain",
       "description": "Minimalist futuristic keychain on a dark background",
