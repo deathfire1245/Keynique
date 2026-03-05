@@ -5,21 +5,28 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { NeonButton } from "@/components/ui/neon-button"
+import { ShoppingCart } from "lucide-react"
 
 const PRODUCTS = [
-  { id: "product-1", name: "The Obsidian", price: "$49", tag: "Limited" },
-  { id: "product-2", name: "Cyber Iris", price: "$59", tag: "New" },
-  { id: "product-3", name: "Titan Geometric", price: "$45", tag: "Classic" },
+  { id: "product-1", name: "The Obsidian", price: "Rs. 13,999", tag: "Limited" },
+  { id: "product-2", name: "Cyber Iris", price: "Rs. 16,499", tag: "New" },
+  { id: "product-3", name: "Titan Geometric", price: "Rs. 12,599", tag: "Classic" },
 ]
 
 export function Products() {
+  const handleAddToCart = () => {
+    const currentCount = parseInt(localStorage.getItem('keynique-cart-count') || '0')
+    localStorage.setItem('keynique-cart-count', (currentCount + 1).toString())
+    window.dispatchEvent(new Event('cart-updated'))
+  }
+
   return (
     <section id="products" className="py-24 bg-secondary-background">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div className="max-w-xl">
             <h2 className="text-3xl md:text-5xl font-bold mb-4">Featured Collection</h2>
-            <p className="text-muted-foreground">Meticulously crafted from aerospace-grade materials. Every drop is a unique expression of technical artistry.</p>
+            <p className="text-muted-foreground">Meticulously crafted from aerospace-grade materials. Every drop is a unique expression of technical artistry in Pakistan.</p>
           </div>
           <NeonButton variant="cyan" size="sm">View All Drops</NeonButton>
         </div>
@@ -52,19 +59,33 @@ export function Products() {
                       data-ai-hint={imgData.imageHint}
                     />
                   )}
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <button className="bg-white text-black font-headline font-bold py-2 px-6 rounded-full text-xs hover:bg-white/90 transition-colors">
-                      Quick Shop
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-3">
+                    <button 
+                      onClick={handleAddToCart}
+                      className="bg-primary text-white font-headline font-bold py-3 px-6 rounded-full text-xs hover:bg-primary/90 transition-all flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 duration-500"
+                    >
+                      <ShoppingCart size={14} />
+                      Add to Cart
                     </button>
                   </div>
                 </div>
 
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="text-xl font-bold font-headline group-hover:text-primary transition-colors">{product.name}</h3>
-                    <p className="text-muted-foreground text-sm font-medium">Aerospace Grade Aluminum</p>
+                <div className="flex flex-col gap-4">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="text-xl font-bold font-headline group-hover:text-primary transition-colors">{product.name}</h3>
+                      <p className="text-muted-foreground text-sm font-medium">Aerospace Grade Aluminum</p>
+                    </div>
+                    <span className="text-xl font-bold text-foreground whitespace-nowrap">{product.price}</span>
                   </div>
-                  <span className="text-xl font-bold text-foreground">{product.price}</span>
+                  
+                  <button 
+                    onClick={handleAddToCart}
+                    className="md:hidden w-full bg-primary/10 border border-primary/20 text-primary font-headline font-bold py-3 rounded-lg text-sm flex items-center justify-center gap-2 hover:bg-primary hover:text-white transition-all"
+                  >
+                    <ShoppingCart size={16} />
+                    Add to Cart
+                  </button>
                 </div>
               </motion.div>
             )

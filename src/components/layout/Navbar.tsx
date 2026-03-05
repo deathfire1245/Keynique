@@ -9,13 +9,27 @@ import { cn } from "@/lib/utils"
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [cartCount, setCartCount] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
     }
+    
+    // Sync cart count from localStorage
+    const updateCartCount = () => {
+      const count = parseInt(localStorage.getItem('keynique-cart-count') || '0')
+      setCartCount(count)
+    }
+
+    updateCartCount()
     window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    window.addEventListener("cart-updated", updateCartCount)
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("cart-updated", updateCartCount)
+    }
   }, [])
 
   return (
@@ -40,7 +54,16 @@ export function Navbar() {
         <div className="flex items-center gap-6">
           <button className="relative text-foreground/80 hover:text-primary transition-colors">
             <ShoppingBag size={20} />
-            <span className="absolute -top-1 -right-1 w-4 h-4 bg-secondary text-[10px] text-background font-bold flex items-center justify-center rounded-full">2</span>
+            {cartCount > 0 && (
+              <motion.span 
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                key={cartCount}
+                className="absolute -top-1 -right-1 w-4 h-4 bg-secondary text-[10px] text-background font-bold flex items-center justify-center rounded-full"
+              >
+                {cartCount}
+              </motion.span>
+            )}
           </button>
           <button 
             className="md:hidden text-foreground/80"
