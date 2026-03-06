@@ -26,6 +26,30 @@ const FloatingParticle = ({ delay = 0, x = 0, y = 0 }) => (
   />
 )
 
+const FloatingSmallKeychain = ({ delay = 0 }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0 }}
+    animate={{ 
+      opacity: [0.4, 0.7, 0.4],
+      y: [0, -15, 0],
+      rotate: [0, 15, 0]
+    }}
+    transition={{ 
+      duration: 7, 
+      repeat: Infinity,
+      delay 
+    }}
+    className="absolute -left-20 top-0 w-24 h-24 pointer-events-none z-20 hidden xl:block"
+  >
+    <Image 
+      src="https://i.postimg.cc/SsvJZtyx/keychain-removebg-preview.png" 
+      alt="Detail Keychain" 
+      fill 
+      className="object-contain filter drop-shadow-[0_0_15px_rgba(139,92,246,0.4)]"
+    />
+  </motion.div>
+)
+
 export function Hero() {
   const heroRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({
@@ -70,6 +94,9 @@ export function Hero() {
           style={{ y: y1 }}
           className="text-left relative"
         >
+          {/* Restored small floating keychain */}
+          <FloatingSmallKeychain delay={1} />
+
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-[10px] font-bold tracking-[0.3em] uppercase mb-8">
             <span className="w-1.5 h-1.5 rounded-full bg-primary" />
             Identity Lab
