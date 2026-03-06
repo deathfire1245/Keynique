@@ -1,9 +1,7 @@
-
 import { Navbar } from "@/components/layout/Navbar"
 import { Hero } from "@/components/sections/Hero"
 import { Products } from "@/components/sections/Products"
 import { WhyKeynique } from "@/components/sections/WhyKeynique"
-import { CustomRequest } from "@/components/sections/CustomRequest"
 import { CTA } from "@/components/sections/CTA"
 import { Footer } from "@/components/layout/Footer"
 import { FirebaseClientProvider } from "@/firebase/client-provider"
@@ -16,7 +14,6 @@ export default function Home() {
         <Hero />
         <Products />
         <WhyKeynique />
-        <CustomRequest />
         <CTA />
         <Footer />
       </main>

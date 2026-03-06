@@ -1,10 +1,9 @@
-
 "use client"
 
 import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { LucideIcon, Home, ShoppingBag, Sparkles, Info, ShoppingCart } from "lucide-react"
+import { LucideIcon, Home, ShoppingBag, Info, ShoppingCart } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
@@ -21,7 +20,6 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { name: "Home", url: "#hero", id: "hero", icon: Home },
   { name: "Shop", url: "#products", id: "products", icon: ShoppingBag },
-  { name: "Custom", url: "#custom", id: "custom", icon: Sparkles },
   { name: "About", url: "#about", id: "about", icon: Info },
 ]
 
@@ -79,7 +77,7 @@ export function Navbar() {
 
   return (
     <>
-      {/* Top Header for Logo and Cart - Stays crisp with fixed background when scrolled */}
+      {/* Top Header for Logo and Cart */}
       <div className={cn(
         "fixed top-0 left-0 right-0 z-[60] px-6 py-4 flex justify-between items-center transition-all duration-500 will-change-transform",
         isScrolled 
@@ -128,7 +126,7 @@ export function Navbar() {
         </CartSheet>
       </div>
 
-      {/* Floating Center NavBar - Refined transition to avoid excessive blur artifacts */}
+      {/* Floating Center NavBar */}
       <div className="fixed bottom-6 md:bottom-auto md:top-6 left-1/2 -translate-x-1/2 z-50 transform-gpu">
         <div className={cn(
           "flex items-center gap-1 border transition-all duration-500 py-1.5 px-1.5 rounded-full shadow-[0_0_40px_rgba(0,0,0,0.6)] will-change-transform",
