@@ -13,7 +13,7 @@ export function Footer() {
           <div className="col-span-2">
             <a href="/" className="text-3xl font-bold font-headline tracking-tighter mb-6 flex items-center gap-3">
               <Image 
-                src="https://i.postimg.cc/SsvJZtyx/keychain-removebg-preview.png" 
+                src="https://i.postimg.cc/JnVkm2fY/IMG-20260305-234455-127-removebg-preview.png" 
                 alt="Keynique Logo" 
                 width={40} 
                 height={40} 

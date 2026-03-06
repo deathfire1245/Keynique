@@ -99,7 +99,7 @@ export function Navbar() {
           className="flex items-center gap-3 group shrink-0"
         >
           <Image 
-            src="https://i.postimg.cc/SsvJZtyx/keychain-removebg-preview.png" 
+            src="https://i.postimg.cc/JnVkm2fY/IMG-20260305-234455-127-removebg-preview.png" 
             alt="Keynique Logo" 
             width={32} 
             height={32} 
