@@ -37,7 +37,6 @@ export function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
 
   const heroImage = PlaceHolderImages.find(img => img.id === "hero-keychain")
-  const smallKeyImage = PlaceHolderImages.find(img => img.id === "product-1")
 
   return (
     <section 
@@ -71,34 +70,6 @@ export function Hero() {
           style={{ y: y1 }}
           className="text-left relative"
         >
-          {/* Small Floating Keychain Detail on the left */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 0.2, scale: 1 }}
-            viewport={{ once: true }}
-            animate={{ 
-              rotate: [0, 10, -10, 0],
-              y: [0, -15, 0]
-            }}
-            transition={{ 
-              opacity: { duration: 1 },
-              rotate: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-              y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
-            }}
-            className="absolute -top-32 -left-20 w-32 h-32 pointer-events-none hidden xl:block"
-          >
-            {smallKeyImage && (
-              <div className="relative w-full h-full">
-                <Image
-                  src={smallKeyImage.imageUrl}
-                  alt="Detail"
-                  fill
-                  className="object-contain filter grayscale opacity-40"
-                />
-              </div>
-            )}
-          </motion.div>
-
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-[10px] font-bold tracking-[0.3em] uppercase mb-8">
             <span className="w-1.5 h-1.5 rounded-full bg-primary" />
             Identity Lab
