@@ -3,7 +3,6 @@ import { Navbar } from "@/components/layout/Navbar"
 import { Hero } from "@/components/sections/Hero"
 import { Products } from "@/components/sections/Products"
 import { WhyKeynique } from "@/components/sections/WhyKeynique"
-import { Lifestyle } from "@/components/sections/Lifestyle"
 import { CustomRequest } from "@/components/sections/CustomRequest"
 import { CTA } from "@/components/sections/CTA"
 import { Footer } from "@/components/layout/Footer"
@@ -17,7 +16,6 @@ export default function Home() {
         <Hero />
         <Products />
         <WhyKeynique />
-        <Lifestyle />
         <CustomRequest />
         <CTA />
         <Footer />
