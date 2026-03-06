@@ -65,7 +65,8 @@ export function Hero() {
         {/* Left Side: Content with Fade-in and Slide-up */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           style={{ y: y1 }}
           className="text-left relative"
@@ -73,14 +74,14 @@ export function Hero() {
           {/* Small Floating Keychain Detail on the left */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 0.3, scale: 1 }}
+            viewport={{ once: true }}
             animate={{ 
-              opacity: 0.3, 
-              scale: 1,
               rotate: [0, 10, -10, 0],
               y: [0, -15, 0]
             }}
             transition={{ 
-              opacity: { delay: 0.5, duration: 1 },
+              opacity: { duration: 1 },
               rotate: { duration: 6, repeat: Infinity, ease: "easeInOut" },
               y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
             }}
@@ -117,7 +118,7 @@ export function Hero() {
           <div className="flex flex-col sm:flex-row gap-6">
             <NeonButton 
               size="lg" 
-              className="px-12 py-7 text-lg"
+              className="px-12 py-7 text-lg group"
               onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Shop Keychains
@@ -135,7 +136,8 @@ export function Hero() {
         {/* Right Side: Visual with Fade-in, Slide-up, and 3D Rotation */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
           className="relative perspective-1000 hidden lg:block"
         >
