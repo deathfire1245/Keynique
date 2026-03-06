@@ -62,7 +62,7 @@ export function Hero() {
       </div>
 
       <div className="container mx-auto relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-        {/* Left Side: Content with Fade-in and Slide-up */}
+        {/* Left Side: Content */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -74,7 +74,7 @@ export function Hero() {
           {/* Small Floating Keychain Detail on the left */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 0.3, scale: 1 }}
+            whileInView={{ opacity: 0.2, scale: 1 }}
             viewport={{ once: true }}
             animate={{ 
               rotate: [0, 10, -10, 0],
@@ -133,17 +133,17 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* Right Side: Visual with Fade-in, Slide-up, and 3D Rotation */}
+        {/* Right Side: Visual - Independent Rotating Image */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-          className="relative perspective-1000 hidden lg:block"
+          className="relative perspective-1000 hidden lg:block group"
         >
-          <div className="relative w-full aspect-square max-w-[500px] mx-auto group">
-            {/* Subtle glow background */}
-            <div className="absolute inset-0 bg-primary/5 rounded-full blur-[100px] group-hover:bg-primary/10 transition-all duration-700" />
+          <div className="relative w-full aspect-square max-w-[600px] mx-auto">
+            {/* Subtle glow background without container borders */}
+            <div className="absolute inset-0 bg-primary/5 rounded-full blur-[120px] group-hover:bg-primary/10 transition-all duration-700 pointer-events-none" />
             
             <motion.div 
               animate={{ 
@@ -151,10 +151,10 @@ export function Hero() {
                 y: [0, -15, 0]
               }}
               transition={{ 
-                rotateY: { duration: 20, repeat: Infinity, ease: "linear" },
-                y: { duration: 5, repeat: Infinity, ease: "easeInOut" }
+                rotateY: { duration: 25, repeat: Infinity, ease: "linear" },
+                y: { duration: 6, repeat: Infinity, ease: "easeInOut" }
               }}
-              className="relative w-full h-full rounded-[40px] overflow-hidden border border-white/5 bg-card/10 backdrop-blur-md flex items-center justify-center p-12 hover:border-primary/20 transition-all duration-500"
+              className="relative w-full h-full flex items-center justify-center p-4"
             >
               {heroImage && (
                 <div className="relative w-full h-full">
@@ -162,8 +162,9 @@ export function Hero() {
                     src={heroImage.imageUrl}
                     alt="Premium Keychain"
                     fill
-                    className="object-contain filter transition-all duration-700 group-hover:drop-shadow-[0_0_20px_rgba(139,92,246,0.3)]"
-                    data-ai-hint="3d keychain"
+                    className="object-contain filter transition-all duration-700 group-hover:drop-shadow-[0_0_40px_rgba(139,92,246,0.5)]"
+                    priority
+                    data-ai-hint="rotating keychain"
                   />
                 </div>
               )}
