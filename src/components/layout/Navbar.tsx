@@ -34,7 +34,7 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
+      setIsScrolled(window.scrollY > 50)
     }
     
     const updateCartCount = () => {
@@ -66,7 +66,7 @@ export function Navbar() {
     })
 
     updateCartCount()
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     window.addEventListener("cart-updated", updateCartCount)
     
     return () => {
@@ -78,10 +78,12 @@ export function Navbar() {
 
   return (
     <>
-      {/* Top Header for Logo and Cart */}
+      {/* Top Header for Logo and Cart - Stays crisp with fixed background when scrolled */}
       <div className={cn(
-        "fixed top-0 left-0 right-0 z-[60] px-6 py-4 flex justify-between items-center transition-all duration-500",
-        isScrolled ? "bg-background/60 backdrop-blur-xl border-b border-white/5" : "bg-transparent"
+        "fixed top-0 left-0 right-0 z-[60] px-6 py-4 flex justify-between items-center transition-all duration-500 will-change-transform",
+        isScrolled 
+          ? "bg-background/80 backdrop-blur-md border-b border-white/5 py-3" 
+          : "bg-transparent"
       )}>
         <Link href="#hero" className="flex items-center gap-3 group">
           {logo && (
@@ -114,13 +116,13 @@ export function Navbar() {
         </CartSheet>
       </div>
 
-      {/* Floating Center NavBar */}
-      <div className="fixed bottom-6 md:bottom-auto md:top-6 left-1/2 -translate-x-1/2 z-50">
+      {/* Floating Center NavBar - Refined transition to avoid excessive blur artifacts */}
+      <div className="fixed bottom-6 md:bottom-auto md:top-6 left-1/2 -translate-x-1/2 z-50 transform-gpu">
         <div className={cn(
-          "flex items-center gap-1 border transition-all duration-500 py-1.5 px-1.5 rounded-full shadow-[0_0_40px_rgba(0,0,0,0.6)]",
+          "flex items-center gap-1 border transition-all duration-500 py-1.5 px-1.5 rounded-full shadow-[0_0_40px_rgba(0,0,0,0.6)] will-change-transform",
           isScrolled 
-            ? "bg-background/40 border-primary/20 backdrop-blur-2xl scale-95 md:scale-100" 
-            : "bg-background/10 border-border/50 backdrop-blur-lg"
+            ? "bg-background/60 border-primary/20 backdrop-blur-xl scale-95 md:scale-100" 
+            : "bg-background/20 border-border/30 backdrop-blur-sm"
         )}>
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon
@@ -133,7 +135,7 @@ export function Navbar() {
                 onClick={() => setActiveTab(item.name)}
                 className={cn(
                   "relative cursor-pointer text-xs md:text-sm font-semibold px-4 md:px-6 py-2.5 rounded-full transition-all duration-300",
-                  "text-foreground/60 hover:text-white",
+                  "text-foreground/60 hover:text-white transform-gpu",
                   isActive && "text-white"
                 )}
               >
