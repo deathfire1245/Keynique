@@ -1,8 +1,9 @@
+
 "use client"
 
 import { motion, useScroll, useTransform } from "framer-motion"
 import { NeonButton } from "@/components/ui/neon-button"
-import { ChevronDown, Key } from "lucide-react"
+import { ChevronDown } from "lucide-react"
 import Image from "next/image"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import React, { useRef } from "react"
@@ -50,10 +51,10 @@ export function Hero() {
 
       {/* Subtle Floating Particles */}
       <div className="absolute inset-0 pointer-events-none">
-        {Array.from({ length: 10 }).map((_, i) => (
+        {Array.from({ length: 15 }).map((_, i) => (
           <FloatingParticle 
             key={i} 
-            delay={i * 1} 
+            delay={i * 0.5} 
             x={Math.random() * 800 - 400} 
             y={Math.random() * 800 - 400} 
           />
@@ -69,11 +70,20 @@ export function Hero() {
           style={{ y: y1 }}
           className="text-left relative"
         >
-          {/* Subtle Small Keychain Detail */}
+          {/* Small Floating Keychain Detail on the left */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.4 }}
-            transition={{ delay: 0.5, duration: 1 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ 
+              opacity: 0.3, 
+              scale: 1,
+              rotate: [0, 10, -10, 0],
+              y: [0, -15, 0]
+            }}
+            transition={{ 
+              opacity: { delay: 0.5, duration: 1 },
+              rotate: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+              y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+            }}
             className="absolute -top-32 -left-20 w-32 h-32 pointer-events-none hidden xl:block"
           >
             {smallKeyImage && (
@@ -122,7 +132,7 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* Right Side: Visual with Fade-in and Slide-up */}
+        {/* Right Side: Visual with Fade-in, Slide-up, and 3D Rotation */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -133,7 +143,17 @@ export function Hero() {
             {/* Subtle glow background */}
             <div className="absolute inset-0 bg-primary/5 rounded-full blur-[100px] group-hover:bg-primary/10 transition-all duration-700" />
             
-            <div className="relative w-full h-full rounded-[40px] overflow-hidden border border-white/5 bg-card/10 backdrop-blur-md flex items-center justify-center p-12 hover:border-primary/20 transition-all duration-500">
+            <motion.div 
+              animate={{ 
+                rotateY: [0, 360],
+                y: [0, -15, 0]
+              }}
+              transition={{ 
+                rotateY: { duration: 20, repeat: Infinity, ease: "linear" },
+                y: { duration: 5, repeat: Infinity, ease: "easeInOut" }
+              }}
+              className="relative w-full h-full rounded-[40px] overflow-hidden border border-white/5 bg-card/10 backdrop-blur-md flex items-center justify-center p-12 hover:border-primary/20 transition-all duration-500"
+            >
               {heroImage && (
                 <div className="relative w-full h-full">
                   <Image
@@ -145,7 +165,7 @@ export function Hero() {
                   />
                 </div>
               )}
-            </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>

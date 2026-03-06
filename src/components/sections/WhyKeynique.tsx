@@ -1,3 +1,4 @@
+
 "use client"
 
 import { motion } from "framer-motion"
@@ -49,7 +50,8 @@ export function WhyKeynique() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="group p-8 bg-card border border-border rounded-2xl hover:border-primary/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(139,92,246,0.05)]"
+              whileHover={{ y: -5, borderColor: "hsl(var(--primary) / 0.3)" }}
+              className="group p-8 bg-card border border-border rounded-2xl transition-all duration-300 hover:shadow-[0_0_30px_rgba(139,92,246,0.1)]"
             >
               <div className="w-16 h-16 rounded-xl bg-background border border-border flex items-center justify-center mb-6 text-primary group-hover:text-secondary group-hover:border-secondary transition-colors">
                 {feature.icon}

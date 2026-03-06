@@ -1,3 +1,4 @@
+
 "use client"
 
 import { motion } from "framer-motion"
@@ -15,7 +16,8 @@ export function CTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto text-center border border-border p-16 rounded-[40px] bg-card/50 backdrop-blur-sm shadow-2xl overflow-hidden group hover:border-primary/20 transition-all duration-500"
+          whileHover={{ borderColor: "hsl(var(--primary) / 0.2)" }}
+          className="max-w-4xl mx-auto text-center border border-border p-16 rounded-[40px] bg-card/50 backdrop-blur-sm shadow-2xl overflow-hidden group transition-all duration-500"
         >
           <div className="relative z-10">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 font-headline tracking-tighter">

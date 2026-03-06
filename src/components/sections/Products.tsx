@@ -1,3 +1,4 @@
+
 "use client"
 
 import { motion } from "framer-motion"
@@ -96,7 +97,7 @@ export function Products() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group relative bg-card border border-border rounded-[24px] overflow-hidden p-4 hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(139,92,246,0.1)]"
+                className="group relative bg-card border border-border rounded-[24px] overflow-hidden p-4 hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]"
               >
                 <div className="absolute top-6 right-6 z-20">
                   <span className="text-[10px] font-bold uppercase tracking-widest text-primary px-3 py-1 bg-primary/10 border border-primary/20 rounded-full backdrop-blur-md">
