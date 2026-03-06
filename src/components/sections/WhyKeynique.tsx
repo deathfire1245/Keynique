@@ -29,7 +29,7 @@ const FEATURES = [
 
 export function WhyKeynique() {
   return (
-    <section className="py-24 overflow-hidden relative">
+    <section id="about" className="py-24 overflow-hidden relative">
       <div className="container mx-auto px-4">
         <div className="text-center mb-20">
           <h2 className="text-4xl md:text-6xl font-bold mb-6">Why Keynique?</h2>

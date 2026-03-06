@@ -13,7 +13,7 @@ export function Hero() {
   const heroImg = PlaceHolderImages.find(img => img.id === "hero-keychain")
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 px-4">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 px-4">
       {/* Background Neon Gradients */}
       <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px] animate-pulse-glow" />
       <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-secondary/10 rounded-full blur-[120px] animate-pulse-glow" />
@@ -43,8 +43,13 @@ export function Hero() {
             Premium keychains designed to upgrade your everyday carry. Collectible, minimal, and unapologetically modern.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <NeonButton size="lg">Shop the Collection</NeonButton>
-            <button className="px-10 py-4 text-sm font-headline font-semibold text-foreground/70 hover:text-foreground transition-colors">
+            <NeonButton size="lg" onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}>
+              Shop the Collection
+            </NeonButton>
+            <button 
+              onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-10 py-4 text-sm font-headline font-semibold text-foreground/70 hover:text-foreground transition-colors"
+            >
               Explore Drops
             </button>
           </div>
