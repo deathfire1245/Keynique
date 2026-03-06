@@ -43,7 +43,7 @@ export function Navbar() {
     // Scroll Spy Logic
     const observerOptions = {
       root: null,
-      rootMargin: '-20% 0px -70% 0px',
+      rootMargin: '-40% 0px -40% 0px', // Trigger when section is in the middle of the viewport
       threshold: 0,
     }
 
@@ -59,6 +59,7 @@ export function Navbar() {
     }
 
     const observer = new IntersectionObserver(observerCallback, observerOptions)
+    
     NAV_ITEMS.forEach((item) => {
       const element = document.getElementById(item.id)
       if (element) observer.observe(element)
