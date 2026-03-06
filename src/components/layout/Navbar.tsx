@@ -1,87 +1,80 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
-import { LucideIcon, Home, ShoppingBag, Info, ShoppingCart } from "lucide-react"
+import { Home, ShoppingBag, Info, ShoppingCart } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { getCartCount } from "@/lib/cart"
 import { CartSheet } from "@/components/cart/CartSheet"
 
-interface NavItem {
-  name: string
-  url: string
-  id: string
-  icon: LucideIcon
-}
-
-const NAV_ITEMS: NavItem[] = [
-  { name: "Home", url: "#hero", id: "hero", icon: Home },
-  { name: "Shop", url: "#products", id: "products", icon: ShoppingBag },
-  { name: "About", url: "#about", id: "about", icon: Info },
+const NAV_ITEMS = [
+  { name: "Home", href: "#hero", id: "hero", icon: Home },
+  { name: "Shop", href: "#products", id: "products", icon: ShoppingBag },
+  { name: "About", href: "#about", id: "about", icon: Info },
 ]
 
 export function Navbar() {
-  const [activeTab, setActiveTab] = useState(NAV_ITEMS[0].name)
-  const [cartCount, setCartCount] = useState(0)
+  const [activeTab, setActiveTab] = useState("Home")
   const [isScrolled, setIsScrolled] = useState(false)
+  const [cartCount, setCartCount] = useState(0)
 
   const logo = PlaceHolderImages.find(img => img.id === "brand-logo")
   const mark = PlaceHolderImages.find(img => img.id === "brand-mark")
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      // Update blur state
+      setIsScrolled(window.scrollY > 20)
+      
+      // Manual Scroll Spy Logic
+      const scrollPosition = window.scrollY + 100 // Buffer for offset
+
+      const sections = NAV_ITEMS.map(item => {
+        const element = document.getElementById(item.id)
+        return {
+          name: item.name,
+          offsetTop: element ? element.offsetTop : 0,
+          height: element ? element.offsetHeight : 0
+        }
+      })
+
+      const currentSection = sections.reduce((acc, section) => {
+        if (scrollPosition >= section.offsetTop - 50) {
+          return section.name
+        }
+        return acc
+      }, "Home")
+
+      setActiveTab(currentSection)
     }
-    
+
     const updateCartCount = () => {
       setCartCount(getCartCount())
     }
 
-    // Advanced Scroll Spy Logic with IntersectionObserver
-    const observerOptions = {
-      root: null,
-      rootMargin: '-20% 0px -70% 0px', // Adjusted margins for better trigger timing
-      threshold: 0,
-    }
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const matchingItem = NAV_ITEMS.find(item => item.id === entry.target.id)
-          if (matchingItem) {
-            setActiveTab(matchingItem.name)
-          }
-        }
-      })
-    }
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions)
-    
-    NAV_ITEMS.forEach((item) => {
-      const element = document.getElementById(item.id)
-      if (element) observer.observe(element)
-    })
-
-    updateCartCount()
     window.addEventListener("scroll", handleScroll, { passive: true })
     window.addEventListener("cart-updated", updateCartCount)
+    
+    // Initial checks
+    handleScroll()
+    updateCartCount()
     
     return () => {
       window.removeEventListener("scroll", handleScroll)
       window.removeEventListener("cart-updated", updateCartCount)
-      observer.disconnect()
     }
   }, [])
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string, name: string) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
-    setActiveTab(name)
-    const element = document.getElementById(id)
+    const targetId = href.replace("#", "")
+    const element = document.getElementById(targetId)
+    
     if (element) {
-      const offset = 100 // Account for fixed header
+      const offset = 80 // Height of navbar + padding
       const bodyRect = document.body.getBoundingClientRect().top
       const elementRect = element.getBoundingClientRect().top
       const elementPosition = elementRect - bodyRect
@@ -95,108 +88,92 @@ export function Navbar() {
   }
 
   return (
-    <>
-      {/* Top Header for Logo and Cart - Fixed and Persistent */}
-      <div className={cn(
-        "fixed top-0 left-0 right-0 z-[60] px-6 py-4 flex justify-between items-center transition-all duration-500 will-change-transform",
-        isScrolled 
-          ? "bg-background/80 backdrop-blur-xl border-b border-white/10 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.5)]" 
-          : "bg-transparent"
-      )}>
-        <Link href="#hero" onClick={(e) => handleNavClick(e, 'hero', 'Home')} className="flex items-center gap-3 group">
+    <nav className={cn(
+      "fixed top-0 left-0 right-0 z-[100] transition-all duration-500 transform-gpu",
+      isScrolled 
+        ? "bg-background/80 backdrop-blur-xl border-b border-white/10 py-3 shadow-2xl" 
+        : "bg-transparent py-5"
+    )}>
+      <div className="container mx-auto px-6 flex items-center justify-between">
+        {/* Branding Area */}
+        <Link 
+          href="#hero" 
+          onClick={(e) => handleNavClick(e, "#hero")}
+          className="flex items-center gap-3 group shrink-0"
+        >
           <div className="flex items-center gap-2">
             {mark && (
-              <div className="relative w-10 h-10 overflow-hidden rounded-lg border border-border/50 group-hover:border-primary transition-colors">
-                <Image 
-                  src={mark.imageUrl} 
-                  alt="Keynique Mark" 
-                  fill 
-                  className="object-cover"
-                />
+              <div className="relative w-10 h-10 overflow-hidden rounded-lg border border-primary/20 group-hover:border-primary/50 transition-colors">
+                <Image src={mark.imageUrl} alt="Mark" fill className="object-cover" />
               </div>
             )}
             {logo && (
-              <div className="relative w-10 h-10 overflow-hidden rounded-lg border border-border/50 group-hover:border-primary transition-colors">
-                <Image 
-                  src={logo.imageUrl} 
-                  alt="Keynique Logo" 
-                  fill 
-                  className="object-cover"
-                />
+              <div className="relative w-10 h-10 overflow-hidden rounded-lg border border-primary/20 group-hover:border-primary/50 transition-colors">
+                <Image src={logo.imageUrl} alt="Logo" fill className="object-cover" />
               </div>
             )}
           </div>
-          <span className="text-xl font-bold font-headline tracking-tighter group-hover:text-primary transition-colors hidden sm:inline-block">
+          <span className="text-xl font-bold font-headline tracking-tighter group-hover:text-primary transition-colors hidden sm:block">
             Keynique<span className="text-primary">.</span>
           </span>
         </Link>
 
-        <CartSheet>
-          <button className="relative p-2.5 text-foreground/90 hover:text-primary transition-colors group bg-card/60 backdrop-blur-md border border-white/10 rounded-full shadow-lg">
-            <ShoppingCart size={20} />
-            {cartCount > 0 && (
-              <motion.span 
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                key={cartCount}
-                className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-[10px] text-white font-bold flex items-center justify-center rounded-full shadow-[0_0_10px_rgba(139,92,246,0.5)]"
-              >
-                {cartCount}
-              </motion.span>
-            )}
-          </button>
-        </CartSheet>
-      </div>
-
-      {/* Floating Center NavBar - Always Along for the Ride */}
-      <div className="fixed bottom-6 md:bottom-auto md:top-6 left-1/2 -translate-x-1/2 z-50 transform-gpu">
-        <div className={cn(
-          "flex items-center gap-1 border transition-all duration-500 py-1.5 px-1.5 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.7)] will-change-transform",
-          isScrolled 
-            ? "bg-black/60 border-primary/30 backdrop-blur-xl scale-95 md:scale-100" 
-            : "bg-background/40 border-border/40 backdrop-blur-md"
-        )}>
+        {/* Centered Moving Navigation Bar */}
+        <div className="flex items-center gap-1 bg-card/40 backdrop-blur-md border border-white/10 p-1 rounded-full shadow-lg">
           {NAV_ITEMS.map((item) => {
-            const Icon = item.icon
             const isActive = activeTab === item.name
-
             return (
               <Link
                 key={item.name}
-                href={item.url}
-                onClick={(e) => handleNavClick(e, item.id, item.name)}
+                href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
                 className={cn(
-                  "relative cursor-pointer text-xs md:text-sm font-semibold px-4 md:px-6 py-2.5 rounded-full transition-all duration-300",
-                  "text-foreground/70 hover:text-white transform-gpu",
-                  isActive && "text-white"
+                  "relative px-4 md:px-6 py-2 text-xs md:text-sm font-semibold rounded-full transition-all duration-300 transform-gpu",
+                  isActive ? "text-white" : "text-foreground/60 hover:text-white"
                 )}
               >
-                <span className="hidden md:inline">{item.name}</span>
-                <span className="md:hidden">
-                  <Icon size={18} strokeWidth={2.5} />
+                <span className="relative z-10 flex items-center gap-2">
+                  <item.icon size={14} className={cn("md:hidden", isActive && "text-primary")} />
+                  <span className="hidden md:inline">{item.name}</span>
                 </span>
                 
                 {isActive && (
                   <motion.div
-                    layoutId="lamp"
-                    className="absolute inset-0 w-full bg-primary/15 rounded-full -z-10"
-                    initial={false}
+                    layoutId="nav-lamp"
+                    className="absolute inset-0 bg-primary/20 rounded-full"
                     transition={{
                       type: "spring",
                       stiffness: 400,
                       damping: 30,
                     }}
                   >
-                    <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-10 h-1 bg-primary rounded-full shadow-[0_0_15px_rgba(139,92,246,0.8)]">
-                      <div className="absolute w-16 h-8 bg-primary/40 rounded-full blur-xl -top-3 -left-3" />
-                    </div>
+                    <div className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-8 h-1 bg-primary rounded-full shadow-[0_0_15px_hsl(var(--primary))]" />
                   </motion.div>
                 )}
               </Link>
             )
           })}
         </div>
+
+        {/* Actions Area */}
+        <div className="flex items-center gap-4 shrink-0">
+          <CartSheet>
+            <button className="relative p-2.5 text-foreground/90 hover:text-primary transition-colors bg-card/60 backdrop-blur-md border border-white/10 rounded-full shadow-lg">
+              <ShoppingCart size={20} />
+              {cartCount > 0 && (
+                <motion.span 
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  key={cartCount}
+                  className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-[10px] text-white font-bold flex items-center justify-center rounded-full shadow-[0_0_10px_rgba(139,92,246,0.5)]"
+                >
+                  {cartCount}
+                </motion.span>
+              )}
+            </button>
+          </CartSheet>
+        </div>
       </div>
-    </>
+    </nav>
   )
 }
