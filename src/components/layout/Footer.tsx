@@ -12,6 +12,13 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-12 mb-20">
           <div className="col-span-2">
             <a href="/" className="text-3xl font-bold font-headline tracking-tighter mb-6 flex items-center gap-3">
+              <Image 
+                src="https://i.postimg.cc/SsvJZtyx/keychain-removebg-preview.png" 
+                alt="Keynique Logo" 
+                width={40} 
+                height={40} 
+                className="object-contain"
+              />
               <span>Keynique<span className="text-primary">.</span></span>
             </a>
             <p className="text-muted-foreground max-w-sm mb-8">

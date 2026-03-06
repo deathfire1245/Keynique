@@ -98,6 +98,13 @@ export function Navbar() {
           onClick={(e) => handleNavClick(e, "#hero")}
           className="flex items-center gap-3 group shrink-0"
         >
+          <Image 
+            src="https://i.postimg.cc/SsvJZtyx/keychain-removebg-preview.png" 
+            alt="Keynique Logo" 
+            width={32} 
+            height={32} 
+            className="object-contain"
+          />
           <span className="text-xl font-bold font-headline tracking-tighter group-hover:text-primary transition-colors">
             Keynique<span className="text-primary">.</span>
           </span>
