@@ -57,6 +57,7 @@ export function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
 
   const heroImage = PlaceHolderImages.find(img => img.id === "hero-keychain")
+  const smallKeyImage = PlaceHolderImages.find(img => img.id === "product-1")
 
   return (
     <section 
@@ -68,7 +69,7 @@ export function Hero() {
       <div className="absolute top-1/4 -left-40 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] animate-pulse-glow" />
       <div className="absolute bottom-1/4 -right-40 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[120px] animate-pulse-glow" />
 
-      {/* Floating Particles */}
+      {/* Floating Particles and Keys */}
       <div className="absolute inset-0 pointer-events-none">
         {Array.from({ length: 15 }).map((_, i) => (
           <FloatingParticle 
@@ -91,8 +92,31 @@ export function Hero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
           style={{ y: y1 }}
-          className="text-left"
+          className="text-left relative"
         >
+          {/* Small Decorative Keychain Detail */}
+          <motion.div
+            animate={{ 
+              y: [0, -15, 0],
+              rotate: [0, 15, 0],
+              opacity: [0.3, 0.6, 0.3]
+            }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -top-32 -left-20 w-32 h-32 pointer-events-none hidden xl:block"
+          >
+            {smallKeyImage && (
+              <div className="relative w-full h-full">
+                <Image
+                  src={smallKeyImage.imageUrl}
+                  alt="Small Keychain Detail"
+                  fill
+                  className="object-contain filter grayscale opacity-40 blur-[1px] hover:blur-0 transition-all duration-500"
+                />
+                <div className="absolute inset-0 bg-primary/20 rounded-full blur-2xl" />
+              </div>
+            )}
+          </motion.div>
+
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
