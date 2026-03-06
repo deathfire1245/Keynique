@@ -77,7 +77,6 @@ export function Products() {
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div className="max-w-xl">
             <h2 className="text-3xl md:text-5xl font-bold mb-4 font-headline tracking-tighter">Featured Collection</h2>
-            <p className="text-muted-foreground">Meticulously crafted from aerospace-grade materials. Every drop is a unique expression of technical artistry in Pakistan.</p>
           </div>
           <NeonButton variant="cyan" size="sm" className="hidden md:flex">View All Drops</NeonButton>
         </div>
