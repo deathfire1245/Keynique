@@ -107,6 +107,9 @@ export function Navbar() {
               </div>
             )}
           </div>
+          <span className="text-xl font-bold font-headline tracking-tighter group-hover:text-primary transition-colors">
+            Keynique<span className="text-primary">.</span>
+          </span>
         </Link>
 
         <CartSheet>
