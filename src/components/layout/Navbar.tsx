@@ -40,10 +40,10 @@ export function Navbar() {
       setCartCount(getCartCount())
     }
 
-    // Scroll Spy Logic
+    // Advanced Scroll Spy Logic with IntersectionObserver
     const observerOptions = {
       root: null,
-      rootMargin: '-40% 0px -40% 0px', // Trigger when section is in the middle of the viewport
+      rootMargin: '-20% 0px -70% 0px', // Adjusted margins for better trigger timing
       threshold: 0,
     }
 
@@ -76,16 +76,34 @@ export function Navbar() {
     }
   }, [])
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string, name: string) => {
+    e.preventDefault()
+    setActiveTab(name)
+    const element = document.getElementById(id)
+    if (element) {
+      const offset = 100 // Account for fixed header
+      const bodyRect = document.body.getBoundingClientRect().top
+      const elementRect = element.getBoundingClientRect().top
+      const elementPosition = elementRect - bodyRect
+      const offsetPosition = elementPosition - offset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
+  }
+
   return (
     <>
-      {/* Top Header for Logo and Cart */}
+      {/* Top Header for Logo and Cart - Fixed and Persistent */}
       <div className={cn(
         "fixed top-0 left-0 right-0 z-[60] px-6 py-4 flex justify-between items-center transition-all duration-500 will-change-transform",
         isScrolled 
-          ? "bg-background/80 backdrop-blur-md border-b border-white/5 py-3" 
+          ? "bg-background/80 backdrop-blur-xl border-b border-white/10 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.5)]" 
           : "bg-transparent"
       )}>
-        <Link href="#hero" className="flex items-center gap-3 group">
+        <Link href="#hero" onClick={(e) => handleNavClick(e, 'hero', 'Home')} className="flex items-center gap-3 group">
           <div className="flex items-center gap-2">
             {mark && (
               <div className="relative w-10 h-10 overflow-hidden rounded-lg border border-border/50 group-hover:border-primary transition-colors">
@@ -108,13 +126,13 @@ export function Navbar() {
               </div>
             )}
           </div>
-          <span className="text-xl font-bold font-headline tracking-tighter group-hover:text-primary transition-colors">
+          <span className="text-xl font-bold font-headline tracking-tighter group-hover:text-primary transition-colors hidden sm:inline-block">
             Keynique<span className="text-primary">.</span>
           </span>
         </Link>
 
         <CartSheet>
-          <button className="relative p-2 text-foreground/80 hover:text-primary transition-colors group bg-card/40 backdrop-blur-md border border-border rounded-full shadow-lg">
+          <button className="relative p-2.5 text-foreground/90 hover:text-primary transition-colors group bg-card/60 backdrop-blur-md border border-white/10 rounded-full shadow-lg">
             <ShoppingCart size={20} />
             {cartCount > 0 && (
               <motion.span 
@@ -130,13 +148,13 @@ export function Navbar() {
         </CartSheet>
       </div>
 
-      {/* Floating Center NavBar */}
+      {/* Floating Center NavBar - Always Along for the Ride */}
       <div className="fixed bottom-6 md:bottom-auto md:top-6 left-1/2 -translate-x-1/2 z-50 transform-gpu">
         <div className={cn(
-          "flex items-center gap-1 border transition-all duration-500 py-1.5 px-1.5 rounded-full shadow-[0_0_40px_rgba(0,0,0,0.6)] will-change-transform",
+          "flex items-center gap-1 border transition-all duration-500 py-1.5 px-1.5 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.7)] will-change-transform",
           isScrolled 
-            ? "bg-background/60 border-primary/20 backdrop-blur-xl scale-95 md:scale-100" 
-            : "bg-background/20 border-border/30 backdrop-blur-sm"
+            ? "bg-black/60 border-primary/30 backdrop-blur-xl scale-95 md:scale-100" 
+            : "bg-background/40 border-border/40 backdrop-blur-md"
         )}>
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon
@@ -146,10 +164,10 @@ export function Navbar() {
               <Link
                 key={item.name}
                 href={item.url}
-                onClick={() => setActiveTab(item.name)}
+                onClick={(e) => handleNavClick(e, item.id, item.name)}
                 className={cn(
                   "relative cursor-pointer text-xs md:text-sm font-semibold px-4 md:px-6 py-2.5 rounded-full transition-all duration-300",
-                  "text-foreground/60 hover:text-white transform-gpu",
+                  "text-foreground/70 hover:text-white transform-gpu",
                   isActive && "text-white"
                 )}
               >
@@ -161,17 +179,16 @@ export function Navbar() {
                 {isActive && (
                   <motion.div
                     layoutId="lamp"
-                    className="absolute inset-0 w-full bg-primary/10 rounded-full -z-10"
+                    className="absolute inset-0 w-full bg-primary/15 rounded-full -z-10"
                     initial={false}
                     transition={{
                       type: "spring",
-                      stiffness: 350,
+                      stiffness: 400,
                       damping: 30,
                     }}
                   >
-                    <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-8 h-1 bg-primary rounded-full">
-                      <div className="absolute w-12 h-6 bg-primary/40 rounded-full blur-md -top-2 -left-2" />
-                      <div className="absolute w-8 h-4 bg-primary/20 rounded-full blur-sm top-0" />
+                    <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-10 h-1 bg-primary rounded-full shadow-[0_0_15px_rgba(139,92,246,0.8)]">
+                      <div className="absolute w-16 h-8 bg-primary/40 rounded-full blur-xl -top-3 -left-3" />
                     </div>
                   </motion.div>
                 )}
