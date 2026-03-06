@@ -3,9 +3,6 @@ import Image from "next/image"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 
 export function Footer() {
-  const logo = PlaceHolderImages.find(img => img.id === "brand-logo")
-  const mark = PlaceHolderImages.find(img => img.id === "brand-mark")
-
   return (
     <footer className="py-20 bg-background border-t border-border">
       <div className="container mx-auto px-4">
@@ -15,30 +12,6 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-12 mb-20">
           <div className="col-span-2">
             <a href="/" className="text-3xl font-bold font-headline tracking-tighter mb-6 flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                {mark && (
-                  <div className="relative w-12 h-12 overflow-hidden rounded-lg">
-                    <Image 
-                      src={mark.imageUrl} 
-                      alt="Keynique Mark" 
-                      fill 
-                      className="object-cover"
-                      data-ai-hint={mark.imageHint}
-                    />
-                  </div>
-                )}
-                {logo && (
-                  <div className="relative w-12 h-12 overflow-hidden rounded-lg">
-                    <Image 
-                      src={logo.imageUrl} 
-                      alt="Keynique Logo" 
-                      fill 
-                      className="object-cover"
-                      data-ai-hint={logo.imageHint}
-                    />
-                  </div>
-                )}
-              </div>
               <span>Keynique<span className="text-primary">.</span></span>
             </a>
             <p className="text-muted-foreground max-w-sm mb-8">

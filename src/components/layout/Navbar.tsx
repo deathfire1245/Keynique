@@ -21,9 +21,6 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [cartCount, setCartCount] = useState(0)
 
-  const logo = PlaceHolderImages.find(img => img.id === "brand-logo")
-  const mark = PlaceHolderImages.find(img => img.id === "brand-mark")
-
   useEffect(() => {
     const handleScroll = () => {
       // Update blur state
@@ -101,19 +98,7 @@ export function Navbar() {
           onClick={(e) => handleNavClick(e, "#hero")}
           className="flex items-center gap-3 group shrink-0"
         >
-          <div className="flex items-center gap-2">
-            {mark && (
-              <div className="relative w-10 h-10 overflow-hidden rounded-lg border border-primary/20 group-hover:border-primary/50 transition-colors">
-                <Image src={mark.imageUrl} alt="Mark" fill className="object-cover" />
-              </div>
-            )}
-            {logo && (
-              <div className="relative w-10 h-10 overflow-hidden rounded-lg border border-primary/20 group-hover:border-primary/50 transition-colors">
-                <Image src={logo.imageUrl} alt="Logo" fill className="object-cover" />
-              </div>
-            )}
-          </div>
-          <span className="text-xl font-bold font-headline tracking-tighter group-hover:text-primary transition-colors hidden sm:block">
+          <span className="text-xl font-bold font-headline tracking-tighter group-hover:text-primary transition-colors">
             Keynique<span className="text-primary">.</span>
           </span>
         </Link>
