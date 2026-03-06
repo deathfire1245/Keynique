@@ -1,4 +1,3 @@
-
 "use client"
 
 import { motion } from "framer-motion"
@@ -31,22 +30,28 @@ export function WhyKeynique() {
   return (
     <section id="about" className="py-24 overflow-hidden relative">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-20">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-20"
+        >
           <h2 className="text-4xl md:text-6xl font-bold mb-6">Why Keynique?</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">We don't just make keychains. We engineer personality into the smallest objects you own.</p>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
           {FEATURES.map((feature, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="group p-8 bg-card border border-border rounded-2xl hover:border-primary/30 transition-all duration-300"
+              className="group p-8 bg-card border border-border rounded-2xl hover:border-primary/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(139,92,246,0.05)]"
             >
-              <div className="w-16 h-16 rounded-xl bg-background border border-border flex items-center justify-center mb-6 text-primary group-hover:text-secondary group-hover:border-secondary transition-colors group-hover:neon-border-cyan">
+              <div className="w-16 h-16 rounded-xl bg-background border border-border flex items-center justify-center mb-6 text-primary group-hover:text-secondary group-hover:border-secondary transition-colors">
                 {feature.icon}
               </div>
               <h3 className="text-xl font-bold font-headline mb-4">{feature.title}</h3>

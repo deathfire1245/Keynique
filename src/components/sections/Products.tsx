@@ -1,4 +1,3 @@
-
 "use client"
 
 import { motion } from "framer-motion"
@@ -74,12 +73,18 @@ export function Products() {
   return (
     <section id="products" className="py-24 bg-background">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6"
+        >
           <div className="max-w-xl">
             <h2 className="text-3xl md:text-5xl font-bold mb-4 font-headline tracking-tighter">Featured Collection</h2>
           </div>
           <NeonButton variant="cyan" size="sm" className="hidden md:flex">View All Drops</NeonButton>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {PRODUCTS.map((product, index) => {
@@ -87,11 +92,11 @@ export function Products() {
             return (
               <motion.div
                 key={product.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group relative bg-card border border-border rounded-[24px] overflow-hidden p-4 hover:border-primary/50 transition-all duration-500"
+                className="group relative bg-card border border-border rounded-[24px] overflow-hidden p-4 hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(139,92,246,0.1)]"
               >
                 <div className="absolute top-6 right-6 z-20">
                   <span className="text-[10px] font-bold uppercase tracking-widest text-primary px-3 py-1 bg-primary/10 border border-primary/20 rounded-full backdrop-blur-md">
@@ -109,8 +114,8 @@ export function Products() {
                       data-ai-hint={imgData.imageHint}
                     />
                   )}
-                  {/* Overlay for Desktop */}
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center p-6">
+                  {/* Subtle Glow on Hover Effect */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center p-6">
                     <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300 w-full flex flex-col gap-3">
                       <button 
                         onClick={() => handleAddToCartAction(product)}
