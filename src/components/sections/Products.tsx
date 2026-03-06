@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { NeonButton } from "@/components/ui/neon-button"
-import { ShoppingCart, ExternalLink } from "lucide-react"
+import { ShoppingCart } from "lucide-react"
 import { addToCart } from "@/lib/cart"
 
 const PRODUCTS = [
@@ -32,6 +32,30 @@ const PRODUCTS = [
     displayPrice: "Rs. 12,599", 
     tag: "Classic",
     material: "Surgical Steel"
+  },
+  { 
+    id: "product-4", 
+    name: "Carbon Core", 
+    price: 18999, 
+    displayPrice: "Rs. 18,999", 
+    tag: "Technical",
+    material: "Carbon Fiber"
+  },
+  { 
+    id: "product-5", 
+    name: "Prism Edge", 
+    price: 14299, 
+    displayPrice: "Rs. 14,299", 
+    tag: "Glow",
+    material: "Neon Acrylic"
+  },
+  { 
+    id: "product-6", 
+    name: "Stealth Pivot", 
+    price: 11499, 
+    displayPrice: "Rs. 11,499", 
+    tag: "Essential",
+    material: "Gunmetal Alloy"
   },
 ]
 

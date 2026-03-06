@@ -22,20 +22,38 @@
     {
       "id": "product-1",
       "description": "Matte black titanium keychain",
-      "imageUrl": "https://picsum.photos/seed/obsidian/600/600",
+      "imageUrl": "https://picsum.photos/seed/key-black/600/600",
       "imageHint": "black keychain"
     },
     {
       "id": "product-2",
       "description": "Iridescent neon purple keychain",
-      "imageUrl": "https://picsum.photos/seed/cyber/600/600",
+      "imageUrl": "https://picsum.photos/seed/key-purple/600/600",
       "imageHint": "purple keychain"
     },
     {
       "id": "product-3",
       "description": "Brushed silver geometric keychain",
-      "imageUrl": "https://picsum.photos/seed/titan/600/600",
+      "imageUrl": "https://picsum.photos/seed/key-metal/600/600",
       "imageHint": "silver keychain"
+    },
+    {
+      "id": "product-4",
+      "description": "Carbon fiber core keychain",
+      "imageUrl": "https://picsum.photos/seed/key-carbon/600/600",
+      "imageHint": "carbon keychain"
+    },
+    {
+      "id": "product-5",
+      "description": "Neon cyan acrylic keychain",
+      "imageUrl": "https://picsum.photos/seed/key-cyan/600/600",
+      "imageHint": "cyan keychain"
+    },
+    {
+      "id": "product-6",
+      "description": "Gunmetal minimalist loop",
+      "imageUrl": "https://picsum.photos/seed/key-minimal/600/600",
+      "imageHint": "minimalist keychain"
     }
   ]
 }
