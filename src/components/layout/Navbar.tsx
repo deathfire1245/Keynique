@@ -31,6 +31,7 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
 
   const logo = PlaceHolderImages.find(img => img.id === "brand-logo")
+  const mark = PlaceHolderImages.find(img => img.id === "brand-mark")
 
   useEffect(() => {
     const handleScroll = () => {
@@ -86,16 +87,28 @@ export function Navbar() {
           : "bg-transparent"
       )}>
         <Link href="#hero" className="flex items-center gap-3 group">
-          {logo && (
-            <div className="relative w-10 h-10 overflow-hidden rounded-lg border border-border/50 group-hover:border-primary transition-colors">
-              <Image 
-                src={logo.imageUrl} 
-                alt="Keynique Logo" 
-                fill 
-                className="object-cover"
-              />
-            </div>
-          )}
+          <div className="flex items-center gap-2">
+            {mark && (
+              <div className="relative w-10 h-10 overflow-hidden rounded-lg border border-border/50 group-hover:border-primary transition-colors">
+                <Image 
+                  src={mark.imageUrl} 
+                  alt="Keynique Mark" 
+                  fill 
+                  className="object-cover"
+                />
+              </div>
+            )}
+            {logo && (
+              <div className="relative w-10 h-10 overflow-hidden rounded-lg border border-border/50 group-hover:border-primary transition-colors">
+                <Image 
+                  src={logo.imageUrl} 
+                  alt="Keynique Logo" 
+                  fill 
+                  className="object-cover"
+                />
+              </div>
+            )}
+          </div>
           <span className="text-xl font-bold font-headline tracking-tighter group-hover:text-primary transition-colors">Keynique</span>
         </Link>
 
