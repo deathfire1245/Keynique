@@ -11,51 +11,67 @@ import { addToCart } from "@/lib/cart"
 const PRODUCTS = [
   { 
     id: "product-1", 
-    name: "The Obsidian", 
-    price: 13999, 
-    displayPrice: "Rs. 13,999", 
-    tag: "Limited",
-    material: "Black Titanium"
+    name: "Cute Teddy Couple", 
+    price: 399, 
+    displayPrice: "Rs. 399", 
+    tag: "Trending",
+    material: "Soft Adorable Pair"
   },
   { 
     id: "product-2", 
-    name: "Cyber Iris", 
-    price: 16499, 
-    displayPrice: "Rs. 16,499", 
-    tag: "New",
-    material: "Iridescent Alloy"
+    name: "Romantic Couple Hug", 
+    price: 399, 
+    displayPrice: "Rs. 399", 
+    tag: "Top Choice",
+    material: "Stylish Affection"
   },
   { 
     id: "product-3", 
-    name: "Titan Geometric", 
-    price: 12599, 
-    displayPrice: "Rs. 12,599", 
-    tag: "Classic",
-    material: "Surgical Steel"
+    name: "Love Memory", 
+    price: 399, 
+    displayPrice: "Rs. 399", 
+    tag: "New Drop",
+    material: "Elegant Keepsake"
   },
   { 
     id: "product-4", 
-    name: "Carbon Core", 
-    price: 18999, 
-    displayPrice: "Rs. 18,999", 
-    tag: "Technical",
-    material: "Carbon Fiber"
+    name: "Sweet Love Cartoon", 
+    price: 399, 
+    displayPrice: "Rs. 399", 
+    tag: "Playful",
+    material: "Fun & Cheerful"
   },
   { 
     id: "product-5", 
-    name: "Prism Edge", 
-    price: 14299, 
-    displayPrice: "Rs. 14,299", 
-    tag: "Glow",
-    material: "Neon Acrylic"
+    name: "Couple Bond", 
+    price: 399, 
+    displayPrice: "Rs. 399", 
+    tag: "Bestseller",
+    material: "Strong Connection"
   },
   { 
     id: "product-6", 
-    name: "Stealth Pivot", 
-    price: 11499, 
-    displayPrice: "Rs. 11,499", 
+    name: "Cute Love Charm", 
+    price: 399, 
+    displayPrice: "Rs. 399", 
     tag: "Essential",
-    material: "Gunmetal Alloy"
+    material: "Sweet Aesthetic"
+  },
+  { 
+    id: "product-7", 
+    name: "Romantic Gift", 
+    price: 399, 
+    displayPrice: "Rs. 399", 
+    tag: "Gift Choice",
+    material: "Heartfelt Symbol"
+  },
+  { 
+    id: "product-8", 
+    name: "Adorable Couple", 
+    price: 399, 
+    displayPrice: "Rs. 399", 
+    tag: "Modern",
+    material: "Stylish Detail"
   },
 ]
 

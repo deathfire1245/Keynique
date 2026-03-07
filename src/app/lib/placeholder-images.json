@@ -21,39 +21,51 @@
     },
     {
       "id": "product-1",
-      "description": "Matte black titanium keychain",
-      "imageUrl": "https://picsum.photos/seed/key-black/600/600",
-      "imageHint": "black keychain"
+      "description": "Cute Teddy Couple Keychain",
+      "imageUrl": "https://i.postimg.cc/K4KB51wZ/Whats-App-Image-2026-03-07-at-3-54-44-PM.jpg",
+      "imageHint": "teddy keychain"
     },
     {
       "id": "product-2",
-      "description": "Iridescent neon purple keychain",
-      "imageUrl": "https://picsum.photos/seed/key-purple/600/600",
-      "imageHint": "purple keychain"
+      "description": "Romantic Couple Hug Keychain",
+      "imageUrl": "https://i.postimg.cc/Bt8HCjkJ/Whats-App-Image-2026-03-07-at-3-54-44-PM-(1).jpg",
+      "imageHint": "hug keychain"
     },
     {
       "id": "product-3",
-      "description": "Brushed silver geometric keychain",
-      "imageUrl": "https://picsum.photos/seed/key-metal/600/600",
-      "imageHint": "silver keychain"
+      "description": "Love Memory Couple Keychain",
+      "imageUrl": "https://i.postimg.cc/kDVKy2z3/Whats-App-Image-2026-03-07-at-3-54-45-PM.jpg",
+      "imageHint": "memory keychain"
     },
     {
       "id": "product-4",
-      "description": "Carbon fiber core keychain",
-      "imageUrl": "https://picsum.photos/seed/key-carbon/600/600",
-      "imageHint": "carbon keychain"
+      "description": "Sweet Love Cartoon Keychain",
+      "imageUrl": "https://i.postimg.cc/vD1fv4kR/Whats-App-Image-2026-03-07-at-3-54-46-PM.jpg",
+      "imageHint": "cartoon keychain"
     },
     {
       "id": "product-5",
-      "description": "Neon cyan acrylic keychain",
-      "imageUrl": "https://picsum.photos/seed/key-cyan/600/600",
-      "imageHint": "cyan keychain"
+      "description": "Couple Bond Keychain",
+      "imageUrl": "https://i.postimg.cc/4nKV1YMD/Whats-App-Image-2026-03-07-at-3-54-46-PM-(1).jpg",
+      "imageHint": "bond keychain"
     },
     {
       "id": "product-6",
-      "description": "Gunmetal minimalist loop",
-      "imageUrl": "https://picsum.photos/seed/key-minimal/600/600",
-      "imageHint": "minimalist keychain"
+      "description": "Cute Love Charm Keychain",
+      "imageUrl": "https://i.postimg.cc/hhJT0XwY/Whats-App-Image-2026-03-07-at-3-54-46-PM-(2).jpg",
+      "imageHint": "charm keychain"
+    },
+    {
+      "id": "product-7",
+      "description": "Romantic Gift Keychain",
+      "imageUrl": "https://i.postimg.cc/XXZdgrhT/Whats-App-Image-2026-03-07-at-3-54-47-PM.jpg",
+      "imageHint": "gift keychain"
+    },
+    {
+      "id": "product-8",
+      "description": "Adorable Couple Keychain",
+      "imageUrl": "https://i.postimg.cc/Yj4YxvVs/Whats-App-Image-2026-03-07-at-3-54-47-PM-(1).jpg",
+      "imageHint": "couple keychain"
     }
   ]
 }
