@@ -2,7 +2,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { ShoppingBag, X, Plus, Minus, Trash2 } from "lucide-react"
+import { ShoppingBag, X, Plus, Minus, Trash2, ExternalLink } from "lucide-react"
 import { 
   Sheet, 
   SheetContent, 
@@ -30,6 +30,10 @@ export function CartSheet({ children }: { children: React.ReactNode }) {
     window.addEventListener('cart-updated', refreshCart)
     return () => window.removeEventListener('cart-updated', refreshCart)
   }, [])
+
+  const handleCheckoutRedirect = () => {
+    window.open('https://mydukaan.io/keynique', '_blank')
+  }
 
   return (
     <Sheet>
@@ -59,6 +63,14 @@ export function CartSheet({ children }: { children: React.ReactNode }) {
                   <h3 className="text-lg font-bold">Your cart is empty</h3>
                   <p className="text-sm text-muted-foreground">Start adding some technical artistry to your carry.</p>
                 </div>
+                <NeonButton 
+                  size="sm" 
+                  variant="purple" 
+                  onClick={handleCheckoutRedirect}
+                  className="mt-4"
+                >
+                  Visit the Lab Store
+                </NeonButton>
               </motion.div>
             ) : (
               <div className="space-y-6">
@@ -119,8 +131,13 @@ export function CartSheet({ children }: { children: React.ReactNode }) {
                 <span>Subtotal</span>
                 <span className="text-primary">Rs. {total.toLocaleString()}</span>
               </div>
-              <p className="text-xs text-muted-foreground">Shipping and taxes calculated at checkout.</p>
-              <NeonButton className="w-full py-6 text-base" variant="purple">
+              <p className="text-xs text-muted-foreground">Finish your order on our secure platform.</p>
+              <NeonButton 
+                className="w-full py-6 text-base" 
+                variant="purple"
+                onClick={handleCheckoutRedirect}
+              >
+                <ExternalLink size={18} className="mr-2" />
                 Checkout Now
               </NeonButton>
             </div>

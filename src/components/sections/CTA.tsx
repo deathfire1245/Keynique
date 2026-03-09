@@ -1,3 +1,4 @@
+
 "use client"
 
 import { motion } from "framer-motion"
@@ -29,7 +30,7 @@ export function CTA() {
               size="lg" 
               variant="purple" 
               className="w-full sm:w-auto text-base md:text-lg py-4 md:py-5 px-8 md:px-12 md:group-hover:shadow-[0_0_30px_rgba(139,92,246,0.4)]"
-              onClick={() => window.open('https://example.com/store', '_blank')}
+              onClick={() => window.open('https://mydukaan.io/keynique', '_blank')}
             >
               Enter the Store
             </NeonButton>
