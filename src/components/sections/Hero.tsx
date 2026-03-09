@@ -1,4 +1,3 @@
-
 "use client"
 
 import { motion, useScroll, useTransform } from "framer-motion"
@@ -31,21 +30,21 @@ const FloatingSmallKeychain = ({ delay = 0 }) => (
     initial={{ opacity: 0, scale: 0 }}
     animate={{ 
       opacity: [0.4, 0.7, 0.4],
-      y: [0, -15, 0],
-      rotate: [0, 15, 0]
+      y: [0, -10, 0],
+      rotate: [0, 10, 0]
     }}
     transition={{ 
       duration: 7, 
       repeat: Infinity,
       delay 
     }}
-    className="absolute -left-20 top-0 w-24 h-24 pointer-events-none z-20 hidden xl:block"
+    className="absolute -left-10 md:-left-20 top-0 w-16 h-16 md:w-24 md:h-24 pointer-events-none z-20"
   >
     <Image 
       src="https://i.postimg.cc/SsvJZtyx/keychain-removebg-preview.png" 
       alt="Detail Keychain" 
       fill 
-      className="object-contain filter drop-shadow-[0_0_15px_rgba(139,92,246,0.4)]"
+      className="object-contain filter drop-shadow-[0_0_15px_rgba(139,92,246,0.3)]"
     />
   </motion.div>
 )
@@ -66,11 +65,11 @@ export function Hero() {
     <section 
       id="hero" 
       ref={heroRef}
-      className="relative min-h-screen flex items-center overflow-hidden bg-hero-gradient pt-20 px-6"
+      className="relative min-h-[100svh] flex items-center overflow-hidden bg-hero-gradient pt-24 md:pt-20 px-4 md:px-6"
     >
       {/* Background Subtle Accents */}
-      <div className="absolute top-1/4 -left-40 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px]" />
-      <div className="absolute bottom-1/4 -right-40 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[120px]" />
+      <div className="absolute top-1/4 -left-40 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-primary/5 rounded-full blur-[80px] md:blur-[120px]" />
+      <div className="absolute bottom-1/4 -right-40 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-secondary/5 rounded-full blur-[80px] md:blur-[120px]" />
 
       {/* Subtle Floating Particles */}
       <div className="absolute inset-0 pointer-events-none">
@@ -78,13 +77,13 @@ export function Hero() {
           <FloatingParticle 
             key={i} 
             delay={i * 0.5} 
-            x={Math.random() * 800 - 400} 
-            y={Math.random() * 800 - 400} 
+            x={Math.random() * 400 - 200} 
+            y={Math.random() * 400 - 200} 
           />
         ))}
       </div>
 
-      <div className="container mx-auto relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto relative z-10 grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
         {/* Left Side: Content */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -92,38 +91,38 @@ export function Hero() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           style={{ y: y1 }}
-          className="text-left relative"
+          className="text-left relative z-20"
         >
-          {/* Restored small floating keychain */}
+          {/* Restore small floating keychain */}
           <FloatingSmallKeychain delay={1} />
 
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-[10px] font-bold tracking-[0.3em] uppercase mb-8">
+          <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1 md:py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-[8px] md:text-[10px] font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase mb-6 md:mb-8">
             <span className="w-1.5 h-1.5 rounded-full bg-primary" />
             Identity Lab
           </div>
           
-          <h1 className="text-6xl md:text-8xl font-bold leading-[1.1] mb-8 font-headline tracking-tighter">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold leading-[1.1] mb-6 md:mb-8 font-headline tracking-tighter">
             Carry Your <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">
               Identity Everywhere.
             </span>
           </h1>
           
-          <p className="text-xl text-muted-foreground max-w-lg mb-12 leading-relaxed font-body font-light">
+          <p className="text-base md:text-xl text-muted-foreground max-w-lg mb-8 md:mb-12 leading-relaxed font-body font-light">
             Premium customizable keychains designed for style, durability, and everyday convenience. Engineered for the modern collective.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-6">
+          <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
             <NeonButton 
               size="lg" 
-              className="px-12 py-7 text-lg group"
+              className="px-8 md:px-12 py-5 md:py-7 text-base md:text-lg group"
               onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Shop Keychains
             </NeonButton>
             <button 
               onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-              className="relative px-12 py-4 text-lg font-headline font-semibold text-foreground/70 hover:text-white transition-all group overflow-hidden rounded-md"
+              className="relative px-8 md:px-12 py-3 md:py-4 text-base md:text-lg font-headline font-semibold text-foreground/70 hover:text-white transition-all group overflow-hidden rounded-md text-center"
             >
               <span className="relative z-10">Explore Drops</span>
               <div className="absolute bottom-0 left-0 w-full h-[1px] bg-primary/50 scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
@@ -137,22 +136,22 @@ export function Hero() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-          className="relative perspective-1000 hidden lg:block group"
+          className="relative perspective-1000 mt-8 lg:mt-0"
         >
-          <div className="relative w-full aspect-square max-w-[600px] mx-auto">
-            {/* Subtle glow background without container borders */}
-            <div className="absolute inset-0 bg-primary/5 rounded-full blur-[120px] group-hover:bg-primary/10 transition-all duration-700 pointer-events-none" />
+          <div className="relative w-full aspect-square max-w-[300px] md:max-w-[600px] mx-auto">
+            {/* Subtle glow background */}
+            <div className="absolute inset-0 bg-primary/5 rounded-full blur-[80px] md:blur-[120px] group-hover:bg-primary/10 transition-all duration-700 pointer-events-none" />
             
             <motion.div 
               animate={{ 
                 rotateY: [0, 360],
-                y: [0, -15, 0]
+                y: [0, -10, 0]
               }}
               transition={{ 
                 rotateY: { duration: 25, repeat: Infinity, ease: "linear" },
                 y: { duration: 6, repeat: Infinity, ease: "easeInOut" }
               }}
-              className="relative w-full h-full flex items-center justify-center p-4"
+              className="relative w-full h-full flex items-center justify-center p-2 md:p-4"
             >
               {heroImage && (
                 <div className="relative w-full h-full">
@@ -160,7 +159,7 @@ export function Hero() {
                     src={heroImage.imageUrl}
                     alt="Premium Keychain"
                     fill
-                    className="object-contain filter transition-all duration-700 group-hover:drop-shadow-[0_0_40px_rgba(139,92,246,0.5)]"
+                    className="object-contain filter transition-all duration-700 drop-shadow-[0_0_20px_rgba(139,92,246,0.3)] md:group-hover:drop-shadow-[0_0_40px_rgba(139,92,246,0.5)]"
                     priority
                     data-ai-hint="rotating keychain"
                   />
@@ -175,10 +174,10 @@ export function Hero() {
         style={{ opacity }}
         animate={{ y: [0, 5, 0] }}
         transition={{ repeat: Infinity, duration: 3 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30 cursor-pointer"
+        className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30 cursor-pointer"
         onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
       >
-        <ChevronDown size={16} className="text-primary" />
+        <ChevronDown size={14} className="text-primary md:w-4 md:h-4" />
       </motion.div>
     </section>
   )
